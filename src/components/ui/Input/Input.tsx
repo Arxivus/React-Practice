@@ -3,10 +3,11 @@ import styles from './styles.module.scss'
 
 interface Props {
   className?: string
+  placeholder?: string
 }
 
-const Input = ({ className }: Props) => {
-  return <div className={cc(styles.inputRoot, className)}>Input component</div>
+const Input = ({ className, placeholder }: Props) => {
+  return <input className={cc(styles.inputRoot, className)} placeholder={placeholder}></input>
 }
 
 

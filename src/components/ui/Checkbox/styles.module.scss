@@ -1,4 +1,48 @@
 @use 'styles/mixins' as *;
 
 .checkboxRoot {
+    width: 20px;
+}
+
+.gitCheckbox {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    min-width: 20px;
+    min-height: 20px;
+    border: 1px solid #D9D9D9;
+    border-radius: 4px;
+    background: #FFFFFF;
+    cursor: pointer;
+    position: relative;
+    outline: none;
+    transition: all 0.2s;
+}
+
+/* Красный бордер в фокусе */
+.gitCheckbox:focus {
+    border-color: #FF5555;
+}
+
+/* Красная галочка при checked */
+.gitCheckbox:checked {
+    background-color: #FFFFFF;
+    border-color: #D9D9D9;
+}
+
+/* Создаем галочку через псевдоэлемент */
+.gitCheckbox:checked::before {
+    content: "";
+    position: absolute;
+    left: 7px;
+    top: 3px;
+    width: 6px;
+    height: 10px;
+    border: solid #FF5555;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+
+.gitCheckbox:disabled {
+    opacity: 70%;
 }

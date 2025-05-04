@@ -3,10 +3,13 @@ import styles from './styles.module.scss'
 
 interface Props {
   className?: string
+  icon: string
 }
 
-const IconButton = ({ className }: Props) => {
-  return <div className={cc(styles.iconButtonRoot, className)}>IconButton component</div>
+const IconButton = ({ className, icon }: Props) => {
+  return <button className={cc(styles.iconButtonRoot, className)}>
+    <img src={icon} />
+  </button>
 }
 
 

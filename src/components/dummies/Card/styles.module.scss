@@ -1,4 +1,52 @@
 @use 'styles/mixins' as *;
 
 .cardRoot {
+    .cardInfo {
+        display: flex;
+        flex-direction: column;
+        min-width: 0;
+        gap: 4px;
+    }
+
+    .cardChildren {
+        display: flex;
+        gap: 20px;
+    }
+
+    .cardChildren div {
+        display: flex;
+        align-items: center;
+    }
+}
+
+.gitRepoCard {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 357px;
+    padding: 12px;
+    border: 1px solid rgba(217, 217, 217, 1);
+    border-radius: 6px;
+    background-color: rgba(255, 255, 255, 1);
+    transition: box-shadow 0.3s ease-out;
+}
+
+.gitRepoCard:hover {
+    box-shadow: 0 2px 6px 0 rgba(182, 182, 182, 0.25);
+    transition: box-shadow 0.3s ease-out;
+}
+
+.gitRepoCard h3 {
+    font-size: 16px;
+    font-weight: 700;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+}
+
+.gitRepoCard p,
+.gitRepoCard span {
+    font-size: 14px;
+    color: rgba(126, 126, 126, 1);
 }

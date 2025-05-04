@@ -5,13 +5,20 @@ interface Props {
   image: string;
   title: string;
   subtitle: string;
-  content?: React.ReactNode;
+  children?: React.ReactNode;
   onClick?: React.MouseEventHandler;
   className?: string
 }
 
-const Card = ({ className }: Props) => {
-  return <div className={cc(styles.cardRoot, className)}>Card component</div>
+const Card = ({ image, title, subtitle, children, className }: Props) => {
+  return <div className={cc(styles.cardRoot, className)}>
+    <img src={image} />
+    <div className={styles.cardInfo}>
+      <h3>{title}</h3>
+      <p>{subtitle}</p>
+      <div className={styles.cardChildren}>{children}</div>
+    </div>
+  </div>
 }
 
 

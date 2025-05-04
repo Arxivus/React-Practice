@@ -6,7 +6,7 @@ interface Props {
 }
 
 const Checkbox = ({ className }: Props) => {
-  return <div className={cc(styles.checkboxRoot, className)}>Checkbox component</div>
+  return <input type='checkbox' className={cc(styles.checkboxRoot, className)}></input>
 }
 
 

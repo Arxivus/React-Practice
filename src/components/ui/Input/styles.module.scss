@@ -1,4 +1,21 @@
 @use 'styles/mixins' as *;
 
 .inputRoot {
+    width: 295px;
+    padding: 17px 12px;
+}
+
+.gitInput {
+    font-size: 14px;
+    border: 1px solid #D9D9D9;
+    border-radius: 6px;
+}
+
+.gitInput:focus {
+    border: 1px solid #FF5555;
+    outline: none;
+}
+
+.gitInput:disabled {
+    background-color: #F9F9F9;
 }

@@ -2,7 +2,6 @@
 
 .loaderRoot {
   display: flex;
-  justify-content: center;
   align-items: center;
 }
 
@@ -35,4 +34,18 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.loader_size_I {
+  width: rem(60);
+  height: rem(60);
+}
+
+.loader_size_m {
+  width: rem(40);
+  height: rem(40);
+}
+
+.loader_size_s {
+  width: 20px;
 }
