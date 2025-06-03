@@ -3,6 +3,7 @@ import { Paths } from 'constants/paths'
 import { NotFoundRoute, Route } from '@tanstack/react-router'
 import Main from 'components/pages/Main'
 import NotFound from 'components/pages/NotFound'
+import RepositoryInfo from 'components/pages/RepositoryInfo'
 import Suspense from 'components/wrappers/Suspense/Suspense'
 import { rootRoute } from './router'
 
@@ -16,6 +17,16 @@ const mainRoute = new Route({
   )
 })
 
+const repoInfoRoute = new Route({
+  getParentRoute: () => rootRoute,
+  path: `${Paths.REPO_INFO}/$owner/$repo`,
+  component: () => (
+    <Suspense>
+      <RepositoryInfo />
+    </Suspense>
+  )
+})
+
 export const notFoundRoute = new NotFoundRoute({
   getParentRoute: () => rootRoute,
   component: () => (
@@ -25,4 +36,4 @@ export const notFoundRoute = new NotFoundRoute({
   )
 })
 
-export const routes = [mainRoute]
+export const routes = [mainRoute, repoInfoRoute]

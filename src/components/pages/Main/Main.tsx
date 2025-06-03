@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import MainLayout from 'components/layouts/MainLayout'
 import styles from './styles.module.scss'
 import card_styles from 'components/dummies/Card/styles.module.scss'
@@ -15,8 +16,14 @@ import Button from 'components/ui/Button'
 import Input from 'components/ui/Input'
 import Loader from 'components/ui/Loader'
 import IconButton from 'components/ui/IconButton'
-import MultiDropdown from 'components/ui/MultiDropdown'
-import Checkbox from 'components/ui/Checkbox'
+/* import MultiDropdown from 'components/ui/MultiDropdown' */
+/*import Checkbox from 'components/ui/Checkbox'*/
+
+
+import { useQuery } from '@tanstack/react-query';
+import axios from 'axios';
+import { useNavigate } from '@tanstack/react-router';
+import { Paths } from 'constants/paths';
 
 
 const options = [
@@ -26,44 +33,88 @@ const options = [
   { value: '4', label: 'one-more-organization' },
 ];
 
+interface Repository {
+  id: number
+  name: string;
+  owner: {
+    login: string;
+    avatar_url: string
+  };
+  stargazers_count: number;
+  updated_at: string;
+}
+
+const formatDate = (dateString: string): string => {
+  const date = new Date(dateString);
+  const day = date.getDate();
+  const month = date.toLocaleString('en-US', { month: 'short' });
+  return `${day} ${month}`;
+};
 
 const Main = () => {
+  const navigate = useNavigate();
+  const [searchText, setSearchText] = useState('');
+  const [searchQuery, setSearchQuery] = useState('');
+
+  const { data } = useQuery({
+    queryKey: ['repos'],
+    queryFn: () =>
+      axios.get<Repository[]>('https://api.github.com/users/octocat/repos',).then(res => res.data),
+  });
+
+  const filteredRepos = data?.filter(repo =>
+    repo.name.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
+  const handleSearch = (e: React.MouseEvent) => {
+    setSearchQuery(searchText.trim());
+  };
+
   return (
     <MainLayout>
       <div className={styles.mainRoot}>
-        <Card className={card_styles.gitRepoCard} image={avatar1} title='git-repo-name' subtitle='git-user'>
-          <div>
-            <img src={star}></img>
-            <span>123</span>
-          </div>
-          <p>Updated 21 Jul</p>
-        </Card>
-        <Card className={card_styles.gitRepoCard} image={avatar2} title='very-long-repository-name-and-other' subtitle='git-user'>
-          <div>
-            <img src={star}></img>
-            <span>123</span>
-          </div>
-          <p>Updated 21 Jul</p>
-        </Card>
-        <Input className={input_styles.gitInput} placeholder='Enter organization name'></Input>
-        <Button className={btn_styles.gitButton}>
-          <p>Send</p>
-        </Button>
-        <Button className={btn_styles.gitButton} loading={true}>
-          <Loader></Loader>
-          <p>Send</p>
-        </Button>
-        <IconButton className={icon_btn_styles.gitIconBtn} icon={search_icon}></IconButton>
+        <div className={styles.repoFindComponents}>
+          <Input
+            className={input_styles.gitInput}
+            placeholder='Enter organization name'
+            value={searchText}
+            onChange={setSearchText}
+          />
+          <IconButton
+            className={icon_btn_styles.gitIconBtn}
+            icon={search_icon}
+            onClick={handleSearch}
+          />
+        </div>
 
-        <MultiDropdown options={options} optionsClassName={dropDown_styles.gitDropDownOptions} selectClassName={dropDown_styles.gitDropDownSelect}></MultiDropdown>
-
-        <Loader color='second' size='I'></Loader>
-        <Loader color='second' size='m'></Loader>
-        <Loader color='second' size='s'></Loader>
-        <Checkbox className={checkbox_styles.gitCheckbox}></Checkbox>
+        <div className={styles.repoCardsBlock}>
+          {filteredRepos?.map(repo => (
+            <Card
+              key={repo.id}
+              className={card_styles.gitRepoCard}
+              image={repo.owner.avatar_url}
+              title={repo.name}
+              subtitle={repo.owner.login}
+              onClick={() => navigate({
+                to: `${Paths.REPO_INFO}/$owner/$repo`,
+                params: {
+                  owner: repo.owner.login,
+                  repo: repo.name
+                }
+              })
+              }>
+              <div>
+                <img src={star} alt="stars" />
+                <span>{repo.stargazers_count}</span>
+              </div>
+              <p>Updated {formatDate(repo.updated_at)}</p>
+            </Card>
+          ))
+          }
+        </div>
       </div>
-    </MainLayout >
-  )
-}
+    </MainLayout>
+  );
+};
 
 export default Main

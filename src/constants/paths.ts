@@ -1,6 +1,7 @@
 export enum Paths {
   MAIN = '/',
-  NOT_FOUND = '/404'
+  NOT_FOUND = '/404',
+  REPO_INFO = '/repo'
 }
 
 type Pathnames = {
@@ -9,5 +10,6 @@ type Pathnames = {
 
 export const PathsNames: Pathnames = {
   [Paths.MAIN]: 'common:pathnames.main',
-  [Paths.NOT_FOUND]: 'common:pathnames.notFound'
+  [Paths.NOT_FOUND]: 'common:pathnames.notFound',
+  [Paths.REPO_INFO]: 'common:pathnames.repoInfo'
 }

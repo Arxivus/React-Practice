@@ -29,12 +29,12 @@
     border: 1px solid rgba(217, 217, 217, 1);
     border-radius: 6px;
     background-color: rgba(255, 255, 255, 1);
-    transition: box-shadow 0.3s ease-out;
+    transition: box-shadow 0.2s ease-out;
 }
 
 .gitRepoCard:hover {
     box-shadow: 0 2px 6px 0 rgba(182, 182, 182, 0.25);
-    transition: box-shadow 0.3s ease-out;
+    transition: box-shadow 0.2s ease-out;
 }
 
 .gitRepoCard h3 {
@@ -50,4 +50,9 @@
 .gitRepoCard span {
     font-size: 14px;
     color: rgba(126, 126, 126, 1);
+}
+
+.gitRepoCard .avatar {
+    width: 80px;
+    border-radius: 100%;
 }
