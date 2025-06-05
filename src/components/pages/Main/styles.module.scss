@@ -17,8 +17,16 @@
   gap: 12px;
 }
 
+.repoDropDownSelection {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 357px;
+}
+
 .repoCardsBlock {
   display: flex;
+  width: 357px;
   flex-direction: column;
   gap: 16px;
 }
