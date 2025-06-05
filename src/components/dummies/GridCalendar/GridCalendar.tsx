@@ -18,18 +18,10 @@ const GridCalendar = ({ monthsMap, className, columnClassName, monthClassName, d
                     <div className={monthClassName}>{monthName}</div>
                     <div className={daysGridClassName}>
                         {days.map((day, idx) => {
-                            let colorClass = '';
-                            if (day.commits === 0) colorClass = '';
-                            else if (day.commits === 1) colorClass = 'colorLite';
-                            else if (day.commits <= 5) colorClass = 'colorMedium';
-                            else colorClass = 'colorDark';
-
-                            return (
-                                <div
-                                    key={idx}
-                                    className={`${dayCell} ${colorClass}`}
-                                />
-                            );
+                            if (day.commits === 0) return (<div key={idx} className={dayCell} />);
+                            else if (day.commits === 1) return (<div key={idx} className={cc(dayCell, styles.colorLite)} />);
+                            else if (day.commits <= 5) return (<div key={idx} className={cc(dayCell, styles.colorMedium)} />);
+                            else return (<div key={idx} className={cc(dayCell, styles.colorDark)} />);
                         })}
                     </div>
                 </div>

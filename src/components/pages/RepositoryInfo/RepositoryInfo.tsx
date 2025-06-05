@@ -78,7 +78,7 @@ export const RepositoryInfo = () => {
 
             console.log(response.status);
             if (response.status === 202) {
-                await new Promise(resolve => setTimeout(resolve, 2000));
+                await new Promise(resolve => setTimeout(resolve, 3000));
                 throw new Error('Retrying...');
             }
 
@@ -112,7 +112,6 @@ export const RepositoryInfo = () => {
                 commits: day.commits,
             });
         });
-        console.log(monthsMap);
     }
 
     return (

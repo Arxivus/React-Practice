@@ -34,7 +34,6 @@
 .repoInfo {
     display: flex;
     flex-direction: column;
-    gap: 10px;
 }
 
 .repoCounters {
@@ -125,16 +124,20 @@
 
 
 .commitCalendar {
+    position: relative;
     width: 357px;
-    overflow-x: auto;
+    overflow-x: scroll;
     display: flex;
     gap: 2px;
 
-    scrollbar-width: none;
-    -ms-overflow-style: none;
+
+
 
     &::-webkit-scrollbar {
-        height: 0;
+        width: -5px;
+        position: absolute;
+        top: 0;
+        height: 15px;
         background-color: transparent;
     }
 

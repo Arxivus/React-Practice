@@ -25,9 +25,6 @@ const options = [
   { value: 'C++', label: 'C++' },
   { value: 'TypeScript', label: 'TypeScript' },
   { value: 'JavaScript', label: 'JavaScript' },
-  { value: 'CSS', label: 'CSS' },
-  { value: 'Ruby', label: 'Ruby' },
-  { value: 'HTML', label: 'HTML' }
 ];
 
 interface Repository {
@@ -58,7 +55,7 @@ const Main = () => {
   const { isLoading, data } = useQuery({
     queryKey: ['repos'],
     queryFn: () =>
-      axios.get<Repository[]>('https://api.github.com/orgs/github/repos', {
+      axios.get<Repository[]>('https://api.github.com/orgs/facebook/repos', {
         headers: {
 
         },
