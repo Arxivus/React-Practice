@@ -49,22 +49,26 @@ const formatDate = (dateString: string): string => {
 const Main = () => {
   const navigate = useNavigate();
   const [searchText, setSearchText] = useState('');
-  const [searchQuery, setSearchQuery] = useState('');
   const [selectedLanguages, setSelectedLanguages] = useState<string[]>([]);
+  const [orgName, setOrgName] = useState(localStorage.getItem('lastOrg') || '');
 
   const { isLoading, data } = useQuery({
-    queryKey: ['repos'],
+    queryKey: ['repos', orgName],
     queryFn: () =>
-      axios.get<Repository[]>('https://api.github.com/orgs/facebook/repos', {
+      axios.get<Repository[]>(`https://api.github.com/orgs/${orgName}/repos`, {
         headers: {
 
         },
       }).then(res => res.data),
+    enabled: !!orgName
   });
 
-
   const handleSearch = (e: React.MouseEvent) => {
-    setSearchQuery(searchText.trim());
+    const trimmedText = searchText.trim();
+    if (trimmedText) {
+      localStorage.setItem('lastOrg', trimmedText);
+      setOrgName(trimmedText);
+    }
   };
 
   const handleLanguageSelect = (selected: string[]) => {
@@ -72,11 +76,8 @@ const Main = () => {
   };
 
   const filteredRepos = data?.filter(repo => {
-    const nameMatch = repo.name.toLowerCase().includes(searchQuery.toLowerCase());
-
-    const languageMatch = selectedLanguages.length === 0 ||
-      (repo.language && selectedLanguages.includes(repo.language));
-    return nameMatch && languageMatch;
+    const languageMatch = selectedLanguages.length === 0 || (repo.language && selectedLanguages.includes(repo.language));
+    return languageMatch;
   });
 
   return (

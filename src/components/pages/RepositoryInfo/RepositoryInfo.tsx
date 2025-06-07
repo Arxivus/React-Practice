@@ -112,6 +112,7 @@ export const RepositoryInfo = () => {
                 commits: day.commits,
             });
         });
+
     }
 
     return (
